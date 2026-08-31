@@ -1,0 +1,6 @@
+{
+  "name": "Creator Hub",
+  "description": "A personal social media creator hub and portfolio bringing YouTube, TikTok, Instagram, Facebook, and X content into one place.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
