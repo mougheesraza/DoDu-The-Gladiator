@@ -1,4 +1,4 @@
-import { instagramProvider } from '../../src/lib/social/instagram';
+import { instagramProvider } from '../../src/lib/social/instagram.js';
 
 export default async function handler(req: any, res: any) {
   try {

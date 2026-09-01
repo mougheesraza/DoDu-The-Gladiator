@@ -1,4 +1,4 @@
-import { ContentItem } from '../../types/social';
+import { ContentItem } from '../../types/social.js';
 
 /**
  * Clean social media content dataset - only genuine live API data is displayed.

@@ -1,4 +1,4 @@
-import { ContentItem, PlatformId, SocialPlatformConfig } from '../../types/social';
+import { ContentItem, PlatformId, SocialPlatformConfig } from '../../types/social.js';
 
 export interface ISocialProvider {
   platformId: PlatformId;

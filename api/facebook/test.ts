@@ -1,4 +1,4 @@
-import { facebookPageProvider } from '../../src/lib/social/facebook';
+import { facebookPageProvider } from '../../src/lib/social/facebook.js';
 
 export default async function handler(req: any, res: any) {
   try {

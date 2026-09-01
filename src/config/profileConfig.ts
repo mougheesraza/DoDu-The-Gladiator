@@ -1,4 +1,4 @@
-import { CreatorProfile } from '../types/social';
+import { CreatorProfile } from '../types/social.js';
 
 /**
  * Centralized Creator Profile Configuration

@@ -1,5 +1,5 @@
-import { ensureContentSynced, socialMediaHubService } from '../src/lib/serverApi';
-import type { PlatformId } from '../src/types/social';
+import { ensureContentSynced, socialMediaHubService } from '../src/lib/serverApi.js';
+import type { PlatformId } from '../src/types/social.js';
 
 export default async function handler(req: any, res: any) {
   try {

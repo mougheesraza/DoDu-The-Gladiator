@@ -1,4 +1,4 @@
-import { instagramProvider } from '../../src/lib/social/instagram';
+import { instagramProvider } from '../../src/lib/social/instagram.js';
 
 export default function handler(_req: any, res: any) {
   return res.status(200).json(instagramProvider.getStatusDetails());

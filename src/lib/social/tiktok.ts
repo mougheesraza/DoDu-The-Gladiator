@@ -1,7 +1,7 @@
-import { ContentItem, PlatformId, SocialPlatformConfig } from '../../types/social';
-import { socialsConfig } from '../../config/socialsConfig';
-import { mockContentData } from './mockData';
-import { ISocialProvider } from './types';
+import { ContentItem, PlatformId, SocialPlatformConfig } from '../../types/social.js';
+import { socialsConfig } from '../../config/socialsConfig.js';
+import { mockContentData } from './mockData.js';
+import { ISocialProvider } from './types.js';
 
 export class TikTokProvider implements ISocialProvider {
   platformId: PlatformId = 'tiktok';

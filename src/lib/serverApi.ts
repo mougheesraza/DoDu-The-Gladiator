@@ -1,6 +1,6 @@
-import { socialMediaHubService } from './social/index';
-import { socialSyncService } from './social/syncService';
-import { contentStore } from './storage/contentStore';
+import { socialMediaHubService } from './social/index.js';
+import { socialSyncService } from './social/syncService.js';
+import { contentStore } from './storage/contentStore.js';
 
 let syncPromise: Promise<unknown> | null = null;
 

@@ -1,4 +1,4 @@
-import { SocialPlatformConfig } from '../types/social';
+import { SocialPlatformConfig } from '../types/social.js';
 
 /**
  * Centralized Social Media Platform Configuration

@@ -1,12 +1,12 @@
-import { ContentItem, Phase2Status, PlatformId, SocialPlatformConfig } from '../../types/social';
-import { socialsConfig } from '../../config/socialsConfig';
-import { contentStore, SyncSummary } from '../storage/contentStore';
-import { facebookPageProvider, facebookProfileProvider } from './facebook';
-import { instagramProvider } from './instagram';
-import { tiktokProvider } from './tiktok';
-import { twitterProvider } from './twitter';
-import { youtubeProvider } from './youtube';
-import { socialSyncService } from './syncService';
+import { ContentItem, Phase2Status, PlatformId, SocialPlatformConfig } from '../../types/social.js';
+import { socialsConfig } from '../../config/socialsConfig.js';
+import { contentStore, SyncSummary } from '../storage/contentStore.js';
+import { facebookPageProvider, facebookProfileProvider } from './facebook.js';
+import { instagramProvider } from './instagram.js';
+import { tiktokProvider } from './tiktok.js';
+import { twitterProvider } from './twitter.js';
+import { youtubeProvider } from './youtube.js';
+import { socialSyncService } from './syncService.js';
 
 class SocialMediaHubService {
   private providers = {

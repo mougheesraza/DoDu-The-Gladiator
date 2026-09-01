@@ -1,4 +1,4 @@
-import { socialMediaHubService } from '../../src/lib/serverApi';
+import { socialMediaHubService } from '../../src/lib/serverApi.js';
 
 export default async function handler(_req: any, res: any) {
   try {

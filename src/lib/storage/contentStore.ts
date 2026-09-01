@@ -1,5 +1,5 @@
-import { ContentItem, PlatformId } from '../../types/social';
-import { mockContentData } from '../social/mockData';
+import { ContentItem, PlatformId } from '../../types/social.js';
+import { mockContentData } from '../social/mockData.js';
 
 export interface StoredContentItem extends ContentItem {
   platformContentId?: string;

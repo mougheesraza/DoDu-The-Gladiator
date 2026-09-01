@@ -1,4 +1,4 @@
-import { socialSyncService } from '../../src/lib/serverApi';
+import { socialSyncService } from '../../src/lib/serverApi.js';
 
 export default async function handler(req: any, res: any) {
   try {

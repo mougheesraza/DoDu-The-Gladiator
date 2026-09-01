@@ -1,6 +1,6 @@
-import { ContentItem, PlatformId, SocialPlatformConfig } from '../../types/social';
-import { socialsConfig } from '../../config/socialsConfig';
-import { ISocialProvider } from './types';
+import { ContentItem, PlatformId, SocialPlatformConfig } from '../../types/social.js';
+import { socialsConfig } from '../../config/socialsConfig.js';
+import { ISocialProvider } from './types.js';
 
 export class TwitterProvider implements ISocialProvider {
   platformId: PlatformId = 'twitter';

@@ -1,4 +1,4 @@
-import { twitterProvider } from '../../src/lib/social/twitter';
+import { twitterProvider } from '../../src/lib/social/twitter.js';
 
 export default async function handler(req: any, res: any) {
   try {

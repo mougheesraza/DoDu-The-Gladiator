@@ -1,10 +1,10 @@
-import { PlatformId } from '../../types/social';
-import { contentStore, SyncSummary } from '../storage/contentStore';
-import { facebookPageProvider, facebookProfileProvider } from './facebook';
-import { instagramProvider } from './instagram';
-import { tiktokProvider } from './tiktok';
-import { twitterProvider } from './twitter';
-import { youtubeProvider } from './youtube';
+import { PlatformId } from '../../types/social.js';
+import { contentStore, SyncSummary } from '../storage/contentStore.js';
+import { facebookPageProvider, facebookProfileProvider } from './facebook.js';
+import { instagramProvider } from './instagram.js';
+import { tiktokProvider } from './tiktok.js';
+import { twitterProvider } from './twitter.js';
+import { youtubeProvider } from './youtube.js';
 
 export class SocialSyncService {
   private providers = {
