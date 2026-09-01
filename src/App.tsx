@@ -12,7 +12,6 @@ import { Phase2ArchitectureModal } from './components/Phase2ArchitectureModal';
 import { TermsPage } from './pages/TermsPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { ContentItem } from './types/social';
-import { socialMediaHubService } from './lib/social';
 
 export default function App() {
   const [selectedContent, setSelectedContent] = useState<ContentItem | null>(null);
@@ -35,10 +34,17 @@ export default function App() {
   };
 
   useEffect(() => {
-    // Load top featured content for the Spotlight section
-    socialMediaHubService.getFeaturedContent().then((item) => {
-      setFeaturedItem(item);
-    });
+    // Load featured content through the serverless API so secrets and server cache stay server-side.
+    fetch('/api/featured')
+      .then(async (res) => {
+        const json = await res.json().catch(() => null);
+        if (!res.ok || !json?.success) throw new Error(json?.error || `Featured API returned HTTP ${res.status}`);
+        setFeaturedItem(json.data || null);
+      })
+      .catch((err) => {
+        console.error('Failed to load featured content:', err);
+        setFeaturedItem(null);
+      });
   }, []);
 
   const renderContent = () => {

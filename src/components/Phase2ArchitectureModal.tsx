@@ -16,7 +16,6 @@ import {
   ExternalLink
 } from 'lucide-react';
 import { ContentItem, Phase2Status, ProviderStatusDetails } from '../types/social';
-import { socialMediaHubService } from '../lib/social';
 
 interface Phase2ArchitectureModalProps {
   isOpen: boolean;
@@ -37,7 +36,7 @@ export const Phase2ArchitectureModal: React.FC<Phase2ArchitectureModalProps> = (
         const json = await res.json();
         setStatus(json);
       } else {
-        setStatus(socialMediaHubService.getPhase2Status());
+        throw new Error(`Status API returned HTTP ${res.status}`);
       }
 
       const contentRes = await fetch('/api/content');
@@ -50,7 +49,8 @@ export const Phase2ArchitectureModal: React.FC<Phase2ArchitectureModalProps> = (
         }
       }
     } catch (e) {
-      setStatus(socialMediaHubService.getPhase2Status());
+      console.error('Failed to load API status/content:', e);
+      setStatus(null);
     }
   };
 
@@ -71,13 +71,11 @@ export const Phase2ArchitectureModal: React.FC<Phase2ArchitectureModalProps> = (
         setSyncMessage(`Sync Complete! Total Synced: ${json.summary?.totalSynced || 0}. ${ytMsg}`);
         await loadStatusAndContent();
       } else {
-        await socialMediaHubService.triggerSync();
-        setSyncMessage('Local sync completed.');
-        await loadStatusAndContent();
+        const json = await res.json().catch(() => null);
+        throw new Error(json?.error || `Sync API returned HTTP ${res.status}`);
       }
     } catch (err: any) {
-      await socialMediaHubService.triggerSync();
-      setSyncMessage('Fallback local sync executed.');
+      setSyncMessage(`Sync failed: ${err?.message || 'Unknown error'}`);
       await loadStatusAndContent();
     } finally {
       setIsSyncing(false);
@@ -87,12 +85,15 @@ export const Phase2ArchitectureModal: React.FC<Phase2ArchitectureModalProps> = (
   const handleSetFeatured = async (id: string) => {
     setSelectedFeaturedId(id);
     try {
-      await fetch('/api/featured', {
+      const res = await fetch('/api/featured', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id })
       });
-      await socialMediaHubService.setFeaturedContent(id);
+      const json = await res.json().catch(() => null);
+      if (!res.ok || !json?.success) {
+        throw new Error(json?.error || `Featured API returned HTTP ${res.status}`);
+      }
       window.location.reload();
     } catch (e) {
       console.warn('Failed to update featured item:', e);

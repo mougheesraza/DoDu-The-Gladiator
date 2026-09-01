@@ -22,7 +22,6 @@ import {
   Lock
 } from 'lucide-react';
 import { ContentItem, PlatformId } from '../types/social';
-import { socialMediaHubService } from '../lib/social';
 
 interface LatestContentProps {
   onSelectContent: (item: ContentItem) => void;
@@ -51,38 +50,22 @@ export const LatestContent: React.FC<LatestContentProps> = ({ onSelectContent })
     setIsLoading(true);
     setHasError(false);
     try {
-      // First attempt server API endpoint
       const params = new URLSearchParams();
       if (selectedFilter !== 'all') params.append('platform', selectedFilter);
       if (searchQuery) params.append('q', searchQuery);
 
       const res = await fetch(`/api/content?${params.toString()}`);
-      if (res.ok) {
-        const json = await res.json();
-        if (json.success && Array.isArray(json.data)) {
-          setItems(json.data);
-          return;
-        }
+      const json = await res.json().catch(() => null);
+
+      if (!res.ok || !json?.success || !Array.isArray(json.data)) {
+        throw new Error(json?.error || `Content API returned HTTP ${res.status}`);
       }
 
-      // Fallback to local service
-      const data = await socialMediaHubService.getAllContent({
-        platform: selectedFilter,
-        searchQuery: searchQuery,
-      });
-      setItems(data);
+      setItems(json.data);
     } catch (err) {
       console.error('Failed to load content:', err);
-      // Fallback
-      try {
-        const data = await socialMediaHubService.getAllContent({
-          platform: selectedFilter,
-          searchQuery: searchQuery,
-        });
-        setItems(data);
-      } catch (e) {
-        setHasError(true);
-      }
+      setItems([]);
+      setHasError(true);
     } finally {
       setIsLoading(false);
     }
@@ -98,15 +81,13 @@ export const LatestContent: React.FC<LatestContentProps> = ({ onSelectContent })
         setSyncStatusMsg(`Synced! ${json.summary?.totalSynced || items.length} total items ready.`);
         await fetchContent();
       } else {
-        setSyncStatusMsg('Sync triggered locally.');
-        await socialMediaHubService.triggerSync();
-        await fetchContent();
+        const json = await res.json().catch(() => null);
+        throw new Error(json?.error || `Sync API returned HTTP ${res.status}`);
       }
     } catch (err) {
       console.warn('Sync error:', err);
-      await socialMediaHubService.triggerSync();
+      setSyncStatusMsg('Sync failed. Please try again.');
       await fetchContent();
-      setSyncStatusMsg('Refreshed local content feed.');
     } finally {
       setIsSyncing(false);
       setTimeout(() => setSyncStatusMsg(null), 4000);
